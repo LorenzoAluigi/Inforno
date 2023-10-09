@@ -1,0 +1,18 @@
+﻿.background-radial-gradient {
+    background-image: url("../Img/pexels-eneida-nieves-905847.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
+.bg-glass {
+    background-color: hsla(0, 0%, 100%, 0.9) !important;
+    backdrop-filter: saturate(200%) blur(25px);
+}
+
+#RegisterSubmit {
+    background-color: rgb(120, 2, 2) !important;
+    color:white
+}

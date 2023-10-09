@@ -1,0 +1,104 @@
+﻿@model Inforno.Models.Users
+
+@{
+    ViewBag.Title = "Register";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="background-radial-gradient overflow-hidden">
+        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+            <div class="row gx-lg-5 align-items-center mb-5">
+                
+
+                <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                    <div class="card bg-glass">
+                        <div class="card-body px-4 py-5 px-md-5">
+                            <h4 class="mb-3">Crea un Account</h4>
+                            <div>
+                                <!-- 2 column grid layout with text inputs for the first and last names -->
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @id = "Name" } })
+                                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                                            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "form-label", @for = "Name" })
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            @Html.EditorFor(model => model.Cognome, new { htmlAttributes = new { @class = "form-control", @id = "Surname" } })
+                                            @Html.ValidationMessageFor(model => model.Cognome, "", new { @class = "text-danger" })
+                                            @Html.LabelFor(model => model.Cognome, htmlAttributes: new { @class = "form-label", @for = "Surname" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            @Html.EditorFor(model => model.Citta, new { htmlAttributes = new { @class = "form-control", @id = "City" } })
+                                            @Html.ValidationMessageFor(model => model.Citta, "", new { @class = "text-danger" })
+                                            @Html.LabelFor(model => model.Citta, htmlAttributes: new { @class = "form-label", @for = "City" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            @Html.EditorFor(model => model.Provincia, new { htmlAttributes = new { @class = "form-control", @id = "District" } })
+                                            @Html.ValidationMessageFor(model => model.Provincia, "", new { @class = "text-danger" })
+                                            @Html.LabelFor(model => model.Provincia, htmlAttributes: new { @class = "form-label", @for = "District" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    @Html.EditorFor(model => model.Indirizzo, new { htmlAttributes = new { @class = "form-control", @id = "Address" } })
+                                    @Html.ValidationMessageFor(model => model.Indirizzo, "", new { @class = "text-danger" })
+                                    @Html.LabelFor(model => model.Indirizzo, htmlAttributes: new { @class = "form-label", @for = "Address" })
+                                </div>
+
+
+                                <!-- Email input -->
+                                <div class="form-outline mb-4">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "Email" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label", @for = "Email" })
+                                </div>
+
+                                <!-- Password input -->
+                                <div class="form-outline mb-4">
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "Password" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "form-label", @for = "Password" })
+                                </div>
+
+
+
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-block mb-4" id="RegisterSubmit">
+                                    Sign up
+                                </button>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
