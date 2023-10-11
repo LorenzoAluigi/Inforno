@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Inforno.Models.Prodotti>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<table class="table align-middle mb-0 bg-white">
+
+    <thead class="bg-light">
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.Foto)</th>
+            <th> @Html.DisplayNameFor(model => model.Nome)</th>
+            <th> @Html.DisplayNameFor(model => model.PrezzoVendita)</th>
+            <th> @Html.DisplayNameFor(model => model.TempoConsegna)</th>
+            <th>  @Html.DisplayNameFor(model => model.Ingredienti)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+
+                       
+                        <img src="@Url.Content("Content/Upload/" + item.Foto)"
+                             alt=""
+                             style="width: 45px; height: 45px"
+                             class="rounded-circle" />
+
+
+                    </div>
+                </td>
+             <td>
+                 @Html.DisplayFor(modelItem => item.Nome)
+
+             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrezzoVendita)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TempoConsegna)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ingredienti)
+                </td>
+                <td>
+                    <a href="@Url.Action("Delete", "Prodotti", new { id = item.IDProdotto })" class="btn">
+                        <i class="bi bi-trash3"></i> 
+                    </a>
+                    <a href="@Url.Action("Edit", "Prodotti", new { id =  item.IDProdotto })" class="btn">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                </td>
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+<!-- table container -->
+@Html.ActionLink("Aggiungi una pizza", "Create", "Prodotti", new {@class= "btn btn-primary btn-block text-uppercase mb-3" })
+
+
+
+
+

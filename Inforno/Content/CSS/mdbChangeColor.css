@@ -1,0 +1,53 @@
+﻿:root {
+    --mdb-primary: #780202;
+    --mdb-btn-bg: #780202;
+    --mdb-btn-color: #fff;
+    --mdb-btn-box-shadow: 0 4px 9px -4px #780202;
+    --mdb-btn-hover-bg: #5c0101;
+    --mdb-btn-hover-color: #fff;
+    --mdb-btn-focus-bg: #5c0101;
+    --mdb-btn-focus-color: #fff;
+    --mdb-btn-active-bg: #4e0101;
+    --mdb-btn-active-color: #fff;
+    --mdb-btn-box-shadow-state: 0 8px 9px -4px rgba(120, 2, 2, 0.3), 0 4px 18px 0 rgba(120, 2, 2, 0.2);
+}
+
+ 
+.btn-primary {
+    color: #fff;
+    background-color: #780202;
+    border-color: #780202;
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.2);
+}
+
+     
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #5c0101;
+        border-color: #5c0101;
+        box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.2);
+    }
+
+     
+    .btn-primary:focus {
+        color: #fff;
+        background-color: #780202;
+        border-color: #780202;
+        box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.2);
+    }
+
+     
+    .btn-primary:active {
+        color: #fff;
+        background-color: #5c0101;
+        border-color: #5c0101;
+        box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.2);
+    }
+
+     Stile quando il pulsante è disabilitato (.btn-primary:disabled) 
+    .btn-primary:disabled {
+        color: #fff;
+        background-color: #780202;
+        border-color: #780202;
+        box-shadow: none;
+    }

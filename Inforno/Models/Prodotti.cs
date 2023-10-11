@@ -26,7 +26,7 @@ namespace Inforno.Models
 
         public decimal PrezzoVendita { get; set; }
 
-        public TimeSpan? TempoConsegna { get; set; }
+        public string TempoConsegna { get; set; }
 
         [Required]
         public string Ingredienti { get; set; }

@@ -8,6 +8,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @* link framework MDB *@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
           rel="stylesheet" />
@@ -22,6 +23,8 @@
     <link href="~/Content/CSS/navbar.css" rel="stylesheet" />
     <link href="~/Content/CSS/Index.css" rel="stylesheet" />
     <link href="~/Content/CSS/Register.css" rel="stylesheet" />
+    <link href="~/Content/CSS/ListPRD.css" rel="stylesheet" />
+    <link href="~/Content/CSS/mdbChangeColor.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -100,15 +103,16 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link text-white" })</li>
-                    
+
                     @if (User.IsInRole("admin"))
                     {
-                        <li>admin</li>
+                        <li>@Html.ActionLink("Pizze", "Index", "Prodotti", new { area = "" }, new { @class = "nav-link text-white" })</li>
 
                     }
 
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <li>@Html.ActionLink("effettua un ordine", "AddOrdini", "Ordini", new { area = "" }, new { @class = "nav-link text-white" })</li>
                         <li>@Html.ActionLink("Logout", "Logout", "Login", new { area = "" }, new { @class = "nav-link text-white" })</li>
 
 

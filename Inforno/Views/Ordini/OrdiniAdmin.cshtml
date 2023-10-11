@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Inforno.Models.Ordini>
+
+@{
+    ViewBag.Title = "OrdiniAdmin";
+}
+
+<h2>OrdiniAdmin</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Users.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataOrdine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IndirizzoSpedizione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Users.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataOrdine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IndirizzoSpedizione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDOrdine }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDOrdine }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDOrdine })
+        </td>
+    </tr>
+}
+
+</table>

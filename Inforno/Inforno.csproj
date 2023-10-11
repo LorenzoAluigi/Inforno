@@ -162,10 +162,25 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OrdiniController.cs" />
+    <Compile Include="Controllers\ProdottiController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310101031045_initDatabase.cs" />
+    <Compile Include="Migrations\202310101031045_initDatabase.designer.cs">
+      <DependentUpon>202310101031045_initDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310102228317_changeTimeType.cs" />
+    <Compile Include="Migrations\202310102228317_changeTimeType.designer.cs">
+      <DependentUpon>202310102228317_changeTimeType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310102231117_deletetimetype.cs" />
+    <Compile Include="Migrations\202310102231117_deletetimetype.designer.cs">
+      <DependentUpon>202310102231117_deletetimetype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ArticoliOrdine.cs" />
     <Compile Include="Models\Auth.cs" />
     <Compile Include="Models\ModelDBContext.cs" />
@@ -194,16 +209,22 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\CSS\CreatePRD.css" />
     <Content Include="Content\CSS\Index.css" />
+    <Content Include="Content\CSS\ListPRD.css" />
     <Content Include="Content\CSS\Login.css" />
+    <Content Include="Content\CSS\mdbChangeColor.css" />
     <Content Include="Content\CSS\navbar.css" />
     <Content Include="Content\CSS\Register.css" />
+    <Content Include="Content\Img\default-placeholder.png" />
     <Content Include="Content\Img\pexels-eneida-nieves-905847.jpg" />
     <Content Include="Content\Img\pexels-engin-akyurt-2619970.jpg" />
     <Content Include="Content\Img\pexels-horizon-content-3761662.jpg" />
     <Content Include="Content\Img\pexels-kristina-paukshtite-1146760.jpg" />
     <Content Include="Content\Img\pexels-norma-mortenson-4393666.jpg" />
     <Content Include="Content\Img\pexels-rene-strgar-13814644.jpg" />
+    <Content Include="Content\Upload\pexels-beqa-tefnadze-803290.jpg" />
+    <Content Include="Content\Upload\pexels-rene-strgar-13814644.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -253,6 +274,14 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Views\Prodotti\Create.cshtml" />
+    <Content Include="Views\Prodotti\Delete.cshtml" />
+    <Content Include="Views\Prodotti\Details.cshtml" />
+    <Content Include="Views\Prodotti\Edit.cshtml" />
+    <Content Include="Views\Prodotti\Index.cshtml" />
+    <Content Include="Views\Ordini\OrdiniAdmin.cshtml" />
+    <Content Include="Views\Ordini\AddOrdini.cshtml" />
+    <Content Include="Views\Ordini\elencoPizze.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -283,6 +312,17 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202310101031045_initDatabase.resx">
+      <DependentUpon>202310101031045_initDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310102228317_changeTimeType.resx">
+      <DependentUpon>202310102228317_changeTimeType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310102231117_deletetimetype.resx">
+      <DependentUpon>202310102231117_deletetimetype.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Inforno.Models.Prodotti>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Foto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrezzoVendita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TempoConsegna)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ingredienti)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Foto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrezzoVendita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TempoConsegna)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ingredienti)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDProdotto }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDProdotto }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDProdotto })
+        </td>
+    </tr>
+}
+
+</table>

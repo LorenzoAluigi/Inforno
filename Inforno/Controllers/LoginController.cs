@@ -23,15 +23,23 @@ namespace Inforno.Controllers
             if (ModelState.IsValid) 
             { 
                     ModelDBContext dbContext = new ModelDBContext();
-                    var user = dbContext.Users.FirstOrDefault(e=>e.Email== u.Email && e.Password==u.Password);
-                   
+                    var user = dbContext.Users.FirstOrDefault(e=>e.Email== u.Email);
+                if (user.Email == u.Email && user.Password == u.Password) 
+                {
                     dbContext.Dispose();
-                    FormsAuthentication.SetAuthCookie(user.Email, false);
+                    FormsAuthentication.SetAuthCookie(user.Email, true);
                     return RedirectToAction("Index", "Home");
+                }
+                else 
+                {
+                    ModelState.AddModelError("", "Credenziali non valide");
+                    return View(u);
+                }
+                   
             }
             else 
             {
-                ModelState.AddModelError("", "Credenziali non valide.");
+                ModelState.AddModelError("", "Credenziali non valide");
                 return View(u);
             
             }

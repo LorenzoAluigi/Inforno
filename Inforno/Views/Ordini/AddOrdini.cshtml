@@ -1,0 +1,192 @@
+﻿@model Inforno.Models.Ordini
+
+@{
+    ViewBag.Title = "AddOrdini";
+}
+
+<h2>AddOrdini</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()<div class="form-horizontal">
+    <h4>Ordine</h4>
+    <table class="table" id="elencoArticoli">
+        @if (ViewBag.carrello!= null) 
+        { 
+        foreach(var item in ViewBag.carrello) 
+            { 
+            <tr>
+
+                <td>
+                    <div class="d-flex align-items-center">
+
+
+                        <img src="@Url.Content("~/Content/Upload/" + item.Foto)"
+                             alt=""
+                             style="width: 45px; height: 45px"
+                             class="rounded-circle" />
+
+
+                    </div>
+                </td>
+                <td>
+                    @item.Nome
+                </td>
+                <td>
+                    @item.PrezzoVendita
+                </td>
+                <td>
+                    @item.TempoConsegna
+                </td>
+                <td>
+                    @item.Ingredienti
+                </td>
+                <td>
+                    <input type="number" id="quantita_@item.IDProdotto" value="1" class="form-control quantita" />
+                </td>
+                <td>
+                    <button class="btn btn-succes addBtn" value=@item.IDProdotto>add</button>
+                </td>
+            </tr>
+            
+            
+            
+            
+            
+            
+            }
+        
+        
+        
+        }
+        <!-- Qui verranno visualizzati gli articoli dell'ordine -->
+    </table>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    <table class="table">
+        
+        @foreach (var item in ViewBag.Pizze)
+        {
+            <tr>
+                
+                <td>
+                    <div class="d-flex align-items-center">
+
+
+                        <img src="@Url.Content("~/Content/Upload/" + item.Foto)"
+                             alt=""
+                             style="width: 45px; height: 45px"
+                             class="rounded-circle" />
+
+
+                    </div>
+                </td>
+                <td>
+                    @item.Nome
+                </td>
+                <td>
+                    @item.PrezzoVendita
+                </td>
+                <td>
+                    @item.TempoConsegna
+                </td>
+                <td>
+                    @item.Ingredienti
+                </td>
+                <td>
+                    <input type="number" id="quantita_@item.IDProdotto" value="1" class="form-control quantita"/>
+                </td>
+                <td> 
+                    <button class="btn btn-succes addBtn" value=@item.IDProdotto>add</button>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        $('.addBtn').click(function () {
+            var input = parseInt(this.value);
+            var pz = $(this).closest('tr').find('#quantita_' + input).val();
+
+            console.log(input);
+            console.log(pz);
+
+            $.ajax({
+                method: 'GET',
+                url: "creaArticoloOrdine",
+                data: { id: input, quantita: pz },
+                success: function (data) {
+                    console.log(data)
+                    var newTr = `<tr>
+                                 <td>
+                                    <div class="d-flex align-items-center">
+                                         <img src="~/Content/Upload/${data.Foto})" alt="${data.Nome}"
+                                              style="width: 45px; height: 45px" class="rounded-circle"/>
+                                     </div>
+                                </td>
+                                <td>
+                                   ${data.Nome}
+                                </td>
+                                <td>
+                                   ${data.PrezzoVendita} €
+                                </td>
+                                <td>
+                                     ${data.TempoConsegna}
+                                </td>
+                                <td>
+                                     ${data.Ingredienti}
+
+                                </td>
+                                <td>
+                                    ${data.Quantita}
+                                </td>
+                                <td>
+                                    ${data.totaleArticolo} €
+                                </td>
+                                </tr>`
+                    $("#elencoArticoli").append(newTr)
+
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+}
+
