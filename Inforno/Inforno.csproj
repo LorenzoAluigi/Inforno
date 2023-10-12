@@ -180,6 +180,10 @@
     <Compile Include="Migrations\202310102231117_deletetimetype.designer.cs">
       <DependentUpon>202310102231117_deletetimetype.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310121307565_AddISEvasoColumn.cs" />
+    <Compile Include="Migrations\202310121307565_AddISEvasoColumn.designer.cs">
+      <DependentUpon>202310121307565_AddISEvasoColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ArticoliOrdine.cs" />
     <Compile Include="Models\Auth.cs" />
@@ -281,7 +285,6 @@
     <Content Include="Views\Prodotti\Index.cshtml" />
     <Content Include="Views\Ordini\OrdiniAdmin.cshtml" />
     <Content Include="Views\Ordini\AddOrdini.cshtml" />
-    <Content Include="Views\Ordini\elencoPizze.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -322,6 +325,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310102231117_deletetimetype.resx">
       <DependentUpon>202310102231117_deletetimetype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310121307565_AddISEvasoColumn.resx">
+      <DependentUpon>202310121307565_AddISEvasoColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

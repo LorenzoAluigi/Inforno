@@ -28,6 +28,8 @@ namespace Inforno.Models
 
         public string Note { get; set; }
 
+        public bool IsEvaso { get; set; }=false;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArticoliOrdine> ArticoliOrdine { get; set; }
 

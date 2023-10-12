@@ -4,182 +4,222 @@
     ViewBag.Title = "AddOrdini";
 }
 
-<h2>AddOrdini</h2>
 
+<section class="h-100 gradient-custom">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center my-4">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Menù</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Single item -->
+                        @foreach (var item in ViewBag.Pizze)
+                        {
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()<div class="form-horizontal">
-    <h4>Ordine</h4>
-    <table class="table" id="elencoArticoli">
-        @if (ViewBag.carrello!= null) 
-        { 
-        foreach(var item in ViewBag.carrello) 
-            { 
-            <tr>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                    <!-- Image -->
+                                    <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                        <img src="@Url.Content("~/Content/Upload/" + item.Foto)"
+                                             class="w-100" alt="Blue Jeans Jacket" />
+                                        <a href="#!">
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                        </a>
+                                    </div>
+                                    <!-- Image -->
+                                </div>
 
-                <td>
-                    <div class="d-flex align-items-center">
+                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                    <!-- Data -->
+                                    <p><strong>@item.Nome</strong></p>
+                                    <p>@item.Ingredienti</p>
 
+                                    <!-- link pagina dettaglio-->
+                                    @*<button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
+                                                title="Move to the wish list">
+                                            <i class="fas fa-heart"></i>
+                                        </button>*@
+                                    <!-- Data -->
+                                </div>
 
-                        <img src="@Url.Content("~/Content/Upload/" + item.Foto)"
-                             alt=""
-                             style="width: 45px; height: 45px"
-                             class="rounded-circle" />
+                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                    <!-- Quantity -->
+                                    <div class="d-flex mb-4" style="max-width: 300px">
+                                        <button class="btn btn-primary px-3 me-2"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
 
+                                        <div class="form-outline">
+                                            <input id="quantita_@item.IDProdotto" min="0" value="0" type="number" class="form-control" />
+                                            <label class="form-label" for="form1">Quantity</label>
+                                        </div>
+
+                                        <button class="btn btn-primary px-3 ms-2"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <!-- Quantity -->
+                                    <!-- Price -->
+                                    <p class="text-start text-md-center">
+                                        <strong>@item.PrezzoVendita</strong>
+                                    </p>
+                                    <!-- Price -->
+                                    <button class="btn btn-succes addBtn" value=@item.IDProdotto>add</button>
+                                </div>
+                            </div>
+                            <hr class="my-4" />
+                            <!-- Single item -->
+                        }
 
                     </div>
-                </td>
-                <td>
-                    @item.Nome
-                </td>
-                <td>
-                    @item.PrezzoVendita
-                </td>
-                <td>
-                    @item.TempoConsegna
-                </td>
-                <td>
-                    @item.Ingredienti
-                </td>
-                <td>
-                    <input type="number" id="quantita_@item.IDProdotto" value="1" class="form-control quantita" />
-                </td>
-                <td>
-                    <button class="btn btn-succes addBtn" value=@item.IDProdotto>add</button>
-                </td>
-            </tr>
-            
-            
-            
-            
-            
-            
-            }
-        
-        
-        
-        }
-        <!-- Qui verranno visualizzati gli articoli dell'ordine -->
-    </table>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
-}
-
-<div>
-    <table class="table">
-        
-        @foreach (var item in ViewBag.Pizze)
-        {
-            <tr>
-                
-                <td>
-                    <div class="d-flex align-items-center">
-
-
-                        <img src="@Url.Content("~/Content/Upload/" + item.Foto)"
-                             alt=""
-                             style="width: 45px; height: 45px"
-                             class="rounded-circle" />
-
-
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <p><strong>Expected shipping delivery</strong></p>
+                        <p class="mb-0">12.10.2020 - 14.10.2020</p>
                     </div>
-                </td>
-                <td>
-                    @item.Nome
-                </td>
-                <td>
-                    @item.PrezzoVendita
-                </td>
-                <td>
-                    @item.TempoConsegna
-                </td>
-                <td>
-                    @item.Ingredienti
-                </td>
-                <td>
-                    <input type="number" id="quantita_@item.IDProdotto" value="1" class="form-control quantita"/>
-                </td>
-                <td> 
-                    <button class="btn btn-succes addBtn" value=@item.IDProdotto>add</button>
-                </td>
-            </tr>
-        }
+                </div>
 
-    </table>
-</div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush" id="elencoArticoli">
+                            @{ decimal totaleCarrello = 0; }
+                            @if (ViewBag.Carrello != null)
+                            {
+                                foreach (var item in ViewBag.Carrello)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0" data-order-id="@item.Prodotti.IDProdotto">
+                                        @item.Prodotti.Nome
+                                        <span id="pz_@item.Prodotti.IDProdotto">
+                                            pz. @item.Quantita
+                                        </span>
+                                        <span>€ @(item.Quantita * item.PrezzoUnitario )</span>
+                                    </li>
+                                    totaleCarrello = totaleCarrello + (item.Quantita * item.PrezzoUnitario);
+                                }
+                            }
 
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div>
+                                    <strong>Total amount</strong>
+                                    <strong>
+                                        <p class="mb-0">(including VAT)</p>
+                                    </strong>
+                                </div>
+                                <span><strong id="totaleCarrello">€@totaleCarrello</strong></span>
+                            </li>
+                        </ul>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <div hidden>
+                                @Html.EditorFor(model => model.IndirizzoSpedizione, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.DataOrdine, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.IDUser, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="form-outline mb-4">
+                                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control", @id = "Note" } })
+                                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "form-label", @for = "Note" })
+
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                Go to checkout
+                            </button>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 <script>
-    $(document).ready(function () {
-        $('.addBtn').click(function () {
-            var input = parseInt(this.value);
-            var pz = $(this).closest('tr').find('#quantita_' + input).val();
+        $(document).ready(function () {
+            $('.addBtn').click(function () {
+                var input = parseInt(this.value);
+                var pz = $(this).closest('div').find('#quantita_' + input).val();
 
-            console.log(input);
-            console.log(pz);
+                console.log(input);
+                console.log(pz);
+                if (pz > 0) {
+                    $.ajax({
+                        method: 'GET',
+                        url: "creaArticoloOrdine",
+                        data: { id: input, quantita: pz },
+                        success: function (data) {
+                            console.log(data)
+                            var newLi = `<li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0" data-order-id="${data.prodotto.IDProdotto}">
+                               ${data.prodotto.Nome}
+                                <span id="pz_${data.prodotto.IDProdotto}">
+                                   pz. ${data.Quantita}
+                                </span>
+                                <span>€ ` + data.totaleArticolo.toFixed(2)+`</span>
+                            </li>`
 
-            $.ajax({
-                method: 'GET',
-                url: "creaArticoloOrdine",
-                data: { id: input, quantita: pz },
-                success: function (data) {
-                    console.log(data)
-                    var newTr = `<tr>
-                                 <td>
-                                    <div class="d-flex align-items-center">
-                                         <img src="~/Content/Upload/${data.Foto})" alt="${data.Nome}"
-                                              style="width: 45px; height: 45px" class="rounded-circle"/>
-                                     </div>
-                                </td>
-                                <td>
-                                   ${data.Nome}
-                                </td>
-                                <td>
-                                   ${data.PrezzoVendita} €
-                                </td>
-                                <td>
-                                     ${data.TempoConsegna}
-                                </td>
-                                <td>
-                                     ${data.Ingredienti}
+                            //seleziono li in base all'id del json della response
+                            var existingLi = $(`#elencoArticoli li[data-order-id="${data.prodotto.IDProdotto}"]`);
+                            console.log(existingLi)
+                            console.log(data.prodotto.IDProdotto)
 
-                                </td>
-                                <td>
-                                    ${data.Quantita}
-                                </td>
-                                <td>
-                                    ${data.totaleArticolo} €
-                                </td>
-                                </tr>`
-                    $("#elencoArticoli").append(newTr)
+                            //controllo se diverso da null
+                            if (existingLi.length>0) {
+                                console.log("sono nell'if")
 
+                                //seleziono il tag con la quantità
+                                var existingQuantita = existingLi.find(`#pz_${data.prodotto.IDProdotto}`);
+
+                                //seleziono il tag con il totale
+                                var existingTotal = existingLi.find('span').last();
+                                console.log(existingTotal)
+                                //divido il testo contenuto nel tag e trasformo in int la seconda parte (valore)
+                                var existingQuantitaText = existingQuantita.text().trim().replace("pz.", "");
+                                console.log("pz", existingQuantitaText)
+                                var existingQuantitaValue = parseInt(existingQuantitaText)
+                                console.log("val", existingQuantitaValue)
+                                //sommo la quantità ricavata con quella ottenuta dalla response
+                                existingQuantitaValue += data.Quantita
+
+                                //la inserisco nuovamente nel tag come stringa
+                                existingQuantita.text(`pz. ${existingQuantitaValue}`);
+
+                                //sostituisco il totale della riga
+                                existingTotal.text("€ " + (existingQuantitaValue * data.prodotto.PrezzoVendita).toFixed(2));
+                            } else {
+                                $("#elencoArticoli").prepend(newLi)
+                            }
+
+                            // seleziono il totale e elimino spazzi
+                            var totaleText = $("#totaleCarrello").text().trim();
+                            console.log(totaleText)
+                            // elimino €
+                            var totale = totaleText.replace("€", "");
+                            console.log(totale)
+                            //trasformo in decimale
+                            var totaleCarrello = parseFloat(totale);
+                            //sommo il totale carrello a quello del nuovo articolo
+                            totaleCarrello += data.totaleArticolo;
+                            //inserisco il nuovo valore come testo con due cifre dopo virgola
+                            $("#totaleCarrello").text("€ " + totaleCarrello.toFixed(2));
+                        }
+
+                    });
                 }
             });
         });
-    });
 </script>
 
 

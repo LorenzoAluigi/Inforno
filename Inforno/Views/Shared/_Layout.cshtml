@@ -107,6 +107,7 @@
                     @if (User.IsInRole("admin"))
                     {
                         <li>@Html.ActionLink("Pizze", "Index", "Prodotti", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                        <li>@Html.ActionLink("Elenco Ordini", "OrdiniAdmin", "Ordini", new { area = "" }, new { @class = "nav-link text-white" })</li>
 
                     }
 

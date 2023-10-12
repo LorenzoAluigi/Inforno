@@ -4,11 +4,9 @@
     ViewBag.Title = "OrdiniAdmin";
 }
 
-<h2>OrdiniAdmin</h2>
+<h2>Lista degli ordini da evadere</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -23,29 +21,97 @@
         <th>
             @Html.DisplayNameFor(model => model.Note)
         </th>
-        <th></th>
+        <th>Evaso</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Users.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataOrdine)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IndirizzoSpedizione)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Note)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDOrdine }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDOrdine }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDOrdine })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Users.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataOrdine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IndirizzoSpedizione)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                <input type="checkbox" class="evaso" data-order-id="@item.IDOrdine" />
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+<button type="button" id="OrdiniEvasi" class="btn">ordini evasi</button>
+<div id="totOrdini"></div>
+
+<input type="date" class="form-control" id="date" />
+<button type="button" id="totaleData" class="btn">calcola totale</button>
+<div id="totIncasso"></div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('#OrdiniEvasi').click(function () {
+                $.ajax({
+                    method: 'GET',
+                    url: "contaOrdiniEvasi",
+                    success: function (data) {
+                        console.log(data)
+                        
+                        $('#totOrdini').text('Totale ordini evasi: ' + data);
+                    },
+                    error: function () {
+                        $('#totOrdini').text('Errore durante il recupero dei dati.');
+                    }
+                    
+
+                });
+            });
+
+            $('#totaleData').click(function () {
+                var newDate = $('#date').val()
+                $.ajax({
+                    method: 'GET',
+                    url: "IncassoAllaData",
+                    data: { date: newDate },
+                    success: function (data) {
+                        console.log(data); 
+                        $('#totIncasso').text('Totale incasso alla data: ' + data + ' €');
+                    },
+                    error: function () {
+                        $('#totIncasso').text('Errore durante il recupero dei dati.');
+                    }
+
+                });
+            });
+
+            $('.evaso').change(function () {
+                var isChecked = $(this).prop('checked');
+                var orderId = $(this).data('order-id');
+                $.ajax({
+                    method: 'GET',
+                    url: "evadiOrdine",
+                    data: {
+                        checked: isChecked,
+                        IdOrdine: orderId
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    }
+
+                });
+            });
+
+
+
+        });
+    </script>
+}
