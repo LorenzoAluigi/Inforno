@@ -285,6 +285,8 @@
     <Content Include="Views\Prodotti\Index.cshtml" />
     <Content Include="Views\Ordini\OrdiniAdmin.cshtml" />
     <Content Include="Views\Ordini\AddOrdini.cshtml" />
+    <Content Include="Views\Ordini\OrdiniUser.cshtml" />
+    <Content Include="Views\Ordini\editOrdineUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

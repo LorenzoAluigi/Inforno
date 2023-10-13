@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Inforno.Models.Ordini>
+
+@{
+    ViewBag.Title = "OrdiniUser";
+}
+
+<h2>Cronologia Ordini</h2>
+
+<p>
+    @Html.ActionLink("ordina", "addOrdine","Ordini" ,new {@class= "btn" })
+</p>
+<table class="table align-middle mb-0 bg-white">
+
+    <thead class="bg-light ">
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.DataOrdine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndirizzoSpedizione)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsEvaso)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="accordion accordion-borderless">
+        @foreach (var item in Model)
+        {
+
+
+
+
+            <tr class=" accordion-item border-0 border-secondary @if (item.IsEvaso) { <text>table-secondary</text>}">
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataOrdine)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IndirizzoSpedizione)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsEvaso)
+                </td>
+                <td>
+                    <button class="btn collapsed"
+                            type="button"
+                            data-mdb-toggle="collapse"
+                            data-mdb-target="#flush-collapse_@item.IDOrdine"
+                            aria-expanded="false"
+                            aria-controls="flush-collapseOne">
+                        dettagli
+                    </button>
+
+                    <a href="@Url.Action("", "", new { id = item.IDOrdine })" class="btn">
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                    <a href="@Url.Action("editOrdineUser", "Ordini", new { id =  item.IDOrdine })" class="btn">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                </td>
+
+            </tr>
+            <tr id="flush-collapse_@item.IDOrdine"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="flush-headingOne"
+                    data-mdb-parent="#accordionFlushExample">
+
+                <td>
+                    @{ decimal totaleCarrello = 0; }
+                    <ul>
+                        @foreach (var e in item.ArticoliOrdine)
+                        {
+                            <li>@e.Prodotti.Nome - @e.Quantita pz. - @(e.PrezzoUnitario * e.Quantita) €</li>
+                            totaleCarrello = totaleCarrello + (e.Quantita * e.PrezzoUnitario) ;
+                        }
+                        <li><strong>totale ordine €@totaleCarrello</strong> </li>
+                    </ul>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

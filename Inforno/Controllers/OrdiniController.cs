@@ -22,10 +22,15 @@ namespace Inforno.Controllers
             return View(ordini);
         }
 
-        [HttpPost]
-        public ActionResult OrdiniAdmin(Ordini ordine)
+       
+        public ActionResult OrdiniUser()
         {
-            return View();
+            string mail = User.Identity.Name;
+            
+            List<Ordini> ordinyByUser = db.Ordini.Where(e=>e.Users.Email == mail ).ToList();
+
+
+            return View(ordinyByUser);
         }
 
 
@@ -37,7 +42,7 @@ namespace Inforno.Controllers
             ordine.IDUser = user.IDUser;
             ordine.DataOrdine = DateTime.Now;
             ordine.IndirizzoSpedizione = $"{user.Indirizzo} - {user.Citta} {user.Provincia}";
-            //ordine.Users = user;
+            
 
             List<Prodotti> Pizze = db.Prodotti.ToList();
             ViewBag.Pizze = Pizze;
@@ -145,12 +150,54 @@ namespace Inforno.Controllers
             return Json(response, JsonRequestBehavior.AllowGet);
 
         }
-        
-        public ActionResult Checkout() 
+
+        public ActionResult evadiOrdine(bool Checked, int IdOrdine)
         {
-            return View(); 
+
+            Ordini ordine = db.Ordini.FirstOrDefault(e => e.IDOrdine == IdOrdine);
+
+            ordine.IsEvaso = Checked;
+            db.Entry(ordine).State = EntityState.Modified;
+            db.SaveChanges();
+
+            var response = "db change ok";
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult editOrdineUser(int id) 
+        {
+            List<Prodotti> Pizze = db.Prodotti.ToList();
+            ViewBag.Pizze = Pizze;
+            Ordini ordine=db.Ordini.Find(id);
+
+
+            ViewBag.Carrello = db.ArticoliOrdine.Where(e=>e.IDOrdine==ordine.IDOrdine).ToList(); 
+
+
+
+            return View(ordine);
         
+        }
+
+        
+
+
+        [HttpPost]
+        public ActionResult editOrdineUser(Ordini ordine)
+        {
+            List<Prodotti> Pizze = db.Prodotti.ToList();
+            ViewBag.Pizze = Pizze;
+
+            return View(ordine);
+
+        }
+
+
+
+
+        //ajax
+
         public ActionResult contaOrdiniEvasi()
         {
             DateTime today = DateTime.Today;
@@ -176,18 +223,7 @@ namespace Inforno.Controllers
             return Json(response, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult evadiOrdine(bool Checked, int IdOrdine)
-        {
-
-            Ordini ordine = db.Ordini.FirstOrDefault(e =>e.IDOrdine==IdOrdine);
-            
-                ordine.IsEvaso = Checked;
-                db.Entry(ordine).State = EntityState.Modified;
-                db.SaveChanges();
-
-            var response = "db change ok";         
-            return Json(response, JsonRequestBehavior.AllowGet);
-        }
+        
 
     }
 }
