@@ -4,7 +4,7 @@
     ViewBag.Title = "OrdiniAdmin";
 }
 
-<h2>Lista degli ordini da evadere</h2>
+<h2>Lista ordini da evadere</h2>
 
 
 <table class="table">
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Note)
             </td>
             <td>
-                <input type="checkbox" class="evaso" data-order-id="@item.IDOrdine" />
+                <input type="checkbox" class="evaso form-check-input" data-order-id="@item.IDOrdine" />
             </td>
         </tr>
     }
@@ -96,6 +96,7 @@
             $('.evaso').change(function () {
                 var isChecked = $(this).prop('checked');
                 var orderId = $(this).data('order-id');
+                var $row = $(this).closest('tr');
                 $.ajax({
                     method: 'GET',
                     url: "evadiOrdine",
@@ -105,6 +106,11 @@
                     },
                     success: function (data) {
                         console.log(data);
+                        if (isChecked) {
+                            $row.addClass('table-secondary');
+                        } else {
+                            $row.removeClass('table-secondary');
+                        }
                     }
 
                 });

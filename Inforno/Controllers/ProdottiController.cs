@@ -84,15 +84,27 @@ namespace Inforno.Controllers
  
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Prodotti prodotti)
+        public ActionResult Edit(Prodotti prodotto, HttpPostedFileBase Foto)
         {
+            
+
+            if(Foto!= null) 
+            {
+                string ext = Path.GetExtension(Foto.FileName);
+                string nomeFile = Foto.FileName;
+                string pathToSave = Path.Combine(Server.MapPath("~/Content/Upload"), nomeFile);
+                Foto.SaveAs(pathToSave);
+                prodotto.Foto = Foto.FileName;
+            }
+
+
             if (ModelState.IsValid)
             {
-                db.Entry(prodotti).State = EntityState.Modified;
+                db.Entry(prodotto).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(prodotti);
+            return View(prodotto);
         }
 
         

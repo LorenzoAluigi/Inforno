@@ -7,62 +7,59 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Prodotti", FormMethod.Post, new { @Enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Prodotti</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IDProdotto)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })<section class=" text-center text-lg-start">
+        <div class="card mb-3">
+            @Html.HiddenFor(model => model.IDProdotto)
+            @Html.HiddenFor(model => model.Foto)
+            <div class="row g-0 d-flex align-items-center">
+                <div class="col-lg-4 d-none d-lg-flex">
+
+
+                    <img id="imgUpload" src="~/Content/Img/@Model.Foto"
+                         class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
+                </div>
+                <div class="col-lg-8">
+                    <div class="card-body py-5 px-md-5">
+
+                        <div>
+                            <div class="form-outline mb-4">
+                                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control w-100", } })
+                                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "form-label", @for = "Nome" })
+                            </div>
+                            <div class="form-outline mb-4">
+                                @Html.EditorFor(model => model.Foto, new { htmlAttributes = new { @class = "form-control ps-5", type = "file", accept = "image/*", @id = "Foto" } })
+                                @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.Foto, htmlAttributes: new { @class = "form-label", @for = "Foto" })
+                            </div>
+                            <div class="form-outline mb-4">
+                                @Html.EditorFor(model => model.PrezzoVendita, new { htmlAttributes = new { @class = "form-control", @id = "PrezzoVendita" } })
+                                @Html.ValidationMessageFor(model => model.PrezzoVendita, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.PrezzoVendita, htmlAttributes: new { @class = "form-label", @for = "PrezzoVendita" })
+                            </div>
+                            <div class="form-outline mb-4">
+                                @Html.EditorFor(model => model.TempoConsegna, new { htmlAttributes = new { @class = "form-control", @id = "TempoConsegna" } })
+                                @Html.ValidationMessageFor(model => model.TempoConsegna, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.TempoConsegna, htmlAttributes: new { @class = "form-label", @for = "TempoConsegna" })
+
+                            </div>
+                            <div class="form-outline mb-4">
+                                @Html.EditorFor(model => model.Ingredienti, new { htmlAttributes = new { @class = "form-control", @id = "Ingrdienti" } })
+                                @Html.ValidationMessageFor(model => model.Ingredienti, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.Ingredienti, htmlAttributes: new { @class = "form-label", @for = "Ingredienti" })
+
+                            </div>
+                            <button type="submit" value="Edit" class="btn btn-primary btn-block mb-4">Modifica</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Foto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Foto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PrezzoVendita, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PrezzoVendita, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PrezzoVendita, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TempoConsegna, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TempoConsegna, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TempoConsegna, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ingredienti, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Ingredienti, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Ingredienti, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+    </section>
 }
 
 <div>
@@ -71,4 +68,23 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        $('#Foto').change(function () {
+            var input = this;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgUpload').attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+            else {
+                imagePreview.attr("src", "~/Content/Img/@Model.Foto");
+            }
+        });
+    });
+</script>
 }
