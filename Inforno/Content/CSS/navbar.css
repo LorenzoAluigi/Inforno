@@ -1,3 +1,19 @@
 ﻿nav {
     background-color: rgb(120, 2, 2) !important
 }
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Altezza minima del viewport */
+}
+
+.wrapper {
+    flex: 1; /* Il wrapper si espande per riempire lo spazio rimanente */
+    padding: 20px; /* Aggiungi spazio vuoto sopra e sotto il contenuto */
+}
+
+.footer {
+    background-color: rgb(120, 2, 2) !important;
+    color: white!important
+       
+}

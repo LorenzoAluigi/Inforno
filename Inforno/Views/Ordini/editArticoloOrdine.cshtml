@@ -1,0 +1,51 @@
+﻿@model Inforno.Models.ArticoliOrdine
+
+@using (Html.BeginForm("editArticoloOrdine", "Ordini", FormMethod.Post, new { id = $"form_{Model.IDArticolo}" })) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="border-bottom">
+
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.IDArticolo)
+    @Html.HiddenFor(model => model.IDOrdine)
+    @Html.HiddenFor(model => model.PrezzoUnitario)
+    @Html.HiddenFor(model => model.IDProdotto)
+    @Html.HiddenFor(model => model.PrezzoUnitario)
+
+
+    <div class="d-flex justify-content-between">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Prodotti.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Prodotti.Nome, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Quantita, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Quantita, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                    @Html.ValidationMessageFor(model => model.Quantita, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-default" data-mdb-toggle="popover"
+                            title="Articolo Modificato"
+                            data-mdb-content="Articolo modificato con successo">
+                        edit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+}
+

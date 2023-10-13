@@ -11,6 +11,7 @@ using Inforno.Models;
 
 namespace Inforno.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ProdottiController : Controller
     {
         private ModelDBContext db = new ModelDBContext();

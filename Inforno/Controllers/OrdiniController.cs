@@ -10,11 +10,12 @@ using System.Web.Mvc;
 
 namespace Inforno.Controllers
 {
+    [Authorize]
     public class OrdiniController : Controller
     {
         private ModelDBContext db = new ModelDBContext();
-        
 
+        [Authorize(Roles = "admin")]
         public ActionResult OrdiniAdmin()
         {
             DateTime today = DateTime.Today;
@@ -57,7 +58,9 @@ namespace Inforno.Controllers
 
             return View(ordine);
         }
+        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddOrdini(Ordini ordine)
         {
             List<Prodotti> Pizze = db.Prodotti.ToList();
@@ -80,6 +83,7 @@ namespace Inforno.Controllers
                         db.SaveChanges();
                     }
                     db.Dispose();
+                    Session.Remove("Carrello");
                 }
                 else 
                 {
@@ -96,7 +100,7 @@ namespace Inforno.Controllers
             return View(ordine) ;
         }
 
-
+        //json resul no salvataggio in db
         public ActionResult creaArticoloOrdine(int id, int quantita)
         {
             Prodotti pizza = db.Prodotti.FirstOrDefault(e => e.IDProdotto == id);
@@ -151,6 +155,7 @@ namespace Inforno.Controllers
 
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult evadiOrdine(bool Checked, int IdOrdine)
         {
 
@@ -179,25 +184,81 @@ namespace Inforno.Controllers
             return View(ordine);
         
         }
+        public ActionResult editArticoloOrdine(int id)
+        {
+            ArticoliOrdine articolo = db.ArticoliOrdine.Find(id);
 
-        
+            return PartialView(articolo);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult editArticoloOrdine(ArticoliOrdine articolo)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(articolo).State = EntityState.Modified;
+                db.SaveChanges();
+                
+            }
+            int id = articolo.IDOrdine;
+            return RedirectToAction("editOrdineUser", new { id = id });
+        }
+
+        //add in database ma solo durante edit ordine
+        public ActionResult addArticoloOrdine(int idOrdine, int idProdotto, int quantita) 
+        {
+            string mail = User.Identity.Name;
+            Users user = db.Users.FirstOrDefault(e => e.Email == mail);
+
+
+
+            return RedirectToAction("editOrdineUser", new { id = idOrdine });
+        }
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult editOrdineUser(Ordini ordine)
         {
             List<Prodotti> Pizze = db.Prodotti.ToList();
             ViewBag.Pizze = Pizze;
+            if (ModelState.IsValid)
+            {
+                db.Entry(ordine).State = EntityState.Modified;
+                db.SaveChanges();
 
-            return View(ordine);
+            }
 
+
+            return RedirectToAction("ordiniUser");
+
+        }
+
+        public ActionResult creaArticoloByEdit(int? id, int? quantita)
+        {
+            var response = "funziona";
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        public ActionResult DeleteArticoloOrdine(int id) 
+        {
+            ArticoliOrdine articolo = db.ArticoliOrdine.Find(id);
+            db.ArticoliOrdine.Remove(articolo);
+            db.SaveChanges();
+
+            int ID = articolo.IDOrdine;
+            return RedirectToAction("editOrdineUser", new { id = ID });
+            
         }
 
 
 
 
         //ajax
-
+        [Authorize(Roles = "admin")]
         public ActionResult contaOrdiniEvasi()
         {
             DateTime today = DateTime.Today;
@@ -206,7 +267,8 @@ namespace Inforno.Controllers
             return Json(response, JsonRequestBehavior.AllowGet);
 
         }
-
+        
+        [Authorize(Roles = "admin")]
         public ActionResult IncassoAllaData(DateTime date)
         {
             

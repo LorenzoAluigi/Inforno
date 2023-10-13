@@ -95,7 +95,7 @@
                 </svg>
             </div>
 
-          
+
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -104,19 +104,24 @@
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link text-white" })</li>
 
-                    @if (User.IsInRole("admin"))
-                    {
-                        <li>@Html.ActionLink("Pizze", "Index", "Prodotti", new { area = "" }, new { @class = "nav-link text-white" })</li>
-                        <li>@Html.ActionLink("Elenco Ordini", "OrdiniAdmin", "Ordini", new { area = "" }, new { @class = "nav-link text-white" })</li>
-
-                    }
-
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("effettua un ordine", "AddOrdini", "Ordini", new { area = "" }, new { @class = "nav-link text-white" })</li>
+
+                        if (User.IsInRole("admin"))
+                        {
+                            <li>@Html.ActionLink("Pizze", "Index", "Prodotti", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                            <li>@Html.ActionLink("Elenco Ordini", "OrdiniAdmin", "Ordini", new { area = "" }, new { @class = "nav-link text-white" })</li>
+
+                        }
+
+                        if (User.IsInRole("user"))
+                        {
+                            <li>@Html.ActionLink("effettua un ordine", "AddOrdini", "Ordini", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                            <li>@Html.ActionLink("ordini effetuati", "OrdiniUser", "Ordini", new { area = "" }, new { @class = "nav-link text-white" })</li>
+
+
+                        }
                         <li>@Html.ActionLink("Logout", "Logout", "Login", new { area = "" }, new { @class = "nav-link text-white" })</li>
-
-
                     }
                     else
                     {
@@ -128,20 +133,22 @@
             </div>
         </div>
     </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <footer class="footer mt-auto">
-        <hr />
-            <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET</p>
-        </footer>
+    <div class="wrapper">
+        <div class="container body-content">
+            @RenderBody()
+        </div>
     </div>
+            <footer class="footer mt-auto">
+                <hr />
+                <p class="text-center">&copy; @DateTime.Now.Year - Lorenzo Aluigi - Applicazione ASP.NET MVC-EF</p>
+            </footer>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js">
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js">
 
-    </script>
+        </script>
 </body>
 </html>

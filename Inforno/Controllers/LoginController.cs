@@ -52,6 +52,7 @@ namespace Inforno.Controllers
         public ActionResult Logout() 
         {
             FormsAuthentication.SignOut();
+            Session.Remove("Carrello");
             return RedirectToAction("Login", "Login");
 
         }
@@ -63,7 +64,7 @@ namespace Inforno.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(Users u)
+        public ActionResult Register([Bind(Exclude = "IDRuolo")] Users u)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +82,7 @@ namespace Inforno.Controllers
                 catch (Exception ex)
                 {
 
-                    ModelState.AddModelError("", "Si è verificato un errore durante la registrazione.");
+                    ModelState.AddModelError("Si è verificato un errore durante la registrazione.",ex);
                     return View(u);
 
                 }
